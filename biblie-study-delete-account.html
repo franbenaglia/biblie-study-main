@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblie Study</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #7c5a2d;
+      --primary-dark: #5f431f;
+      --border: #e5ded3;
+      --accent: #efe6d7;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fbfaf7 0%, var(--bg) 100%);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(251,250,247,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: var(--shadow);
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .lang-switch button.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--text);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #fff 0%, #f6efe4 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .mock {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .mock-top {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d8c7ad;
+    }
+
+    .verse {
+      background: var(--accent);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 12px;
+      color: var(--primary-dark);
+      font-size: 15px;
+    }
+
+    section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      font-size: 30px;
+      margin: 0 0 10px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .contact-box {
+      background: linear-gradient(180deg, #fff 0%, #f8f2e8 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      padding: 34px 0 50px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    [data-lang] { display: none; }
+    [data-lang].visible { display: block; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-3,
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Biblie Study</div>
+      <div class="nav-links">
+        <a href="#features">Features / Funciones</a>
+        <a href="#about">About / Acerca</a>
+        <a href="#contact">Contact / Contacto</a>
+      </div>
+      <div class="lang-switch" aria-label="Language switcher">
+        <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+        <button id="btn-es" onclick="setLang('es')">ES</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div data-lang="en" class="visible">
+            <span class="pill">Bible study with AI</span>
+            <h1>Read, search, listen, and study the Bible in one place.</h1>
+            <p class="subtitle">Biblie Study combines Bible reading, audio, smart verse search, AI chat, quizzes, reading plans, and personal notes in a simple mobile experience.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="#contact">Contact</a>
+              <a class="btn secondary" href="#features">Explore features</a>
+            </div>
+            <p class="muted">Available in English and Spanish.</p>
+          </div>
+
+          <div data-lang="es">
+            <span class="pill">Estudio bíblico con IA</span>
+            <h1>Leé, buscá, escuchá y estudiá la Biblia en un solo lugar.</h1>
+            <p class="subtitle">Biblie Study combina lectura bíblica, audio, búsqueda inteligente de versículos, chat con IA, quizzes, planes de lectura y notas personales en una experiencia móvil simple.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="#contact">Contacto</a>
+              <a class="btn secondary" href="#features">Ver funciones</a>
+            </div>
+            <p class="muted">Disponible en inglés y español.</p>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mock">
+            <div class="mock-top">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div data-lang="en" class="visible">
+              <strong>Smart Bible search</strong>
+              <p class="muted">Search by meaning, not only exact words.</p>
+              <div class="verse">“Forgive your enemies” → related verses and similarity score.</div>
+            </div>
+            <div data-lang="es">
+              <strong>Búsqueda bíblica inteligente</strong>
+              <p class="muted">Buscá por significado, no solo por palabras exactas.</p>
+              <div class="verse">“Perdonar a los enemigos” → versículos relacionados y nivel de similitud.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div data-lang="en" class="visible">
+          <h2 class="section-title">A complete Bible study app</h2>
+          <p class="section-text">Biblie Study is designed for readers, students, and believers who want a practical and modern way to explore Scripture. It includes multiple Bible versions, audio playback, semantic search, AI-powered study tools, and synced notes.</p>
+        </div>
+        <div data-lang="es">
+          <h2 class="section-title">Una app completa para estudiar la Biblia</h2>
+          <p class="section-text">Biblie Study está diseñada para lectores, estudiantes y creyentes que buscan una forma práctica y moderna de explorar las Escrituras. Incluye múltiples versiones de la Biblia, audio, búsqueda semántica, herramientas de estudio con IA y notas sincronizadas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div data-lang="en" class="visible">
+          <h2 class="section-title">Core features</h2>
+          <p class="section-text">Built to make Bible reading and learning easier every day.</p>
+        </div>
+        <div data-lang="es">
+          <h2 class="section-title">Funciones principales</h2>
+          <p class="section-text">Pensada para hacer más fácil la lectura y el aprendizaje bíblico todos los días.</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>Bible reading</strong>
+              <span class="muted">Read by book and chapter in multiple versions, including English, Spanish, and Latin.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Lectura bíblica</strong>
+              <span class="muted">Leé por libro y capítulo en múltiples versiones, incluyendo inglés, español y latín.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>Audio playback</strong>
+              <span class="muted">Listen to chapters with text-to-speech support for the selected language.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Audio integrado</strong>
+              <span class="muted">Escuchá capítulos con soporte de lectura en voz alta según el idioma seleccionado.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>Smart search</strong>
+              <span class="muted">Find verses by concept and meaning, not only by exact keyword matches.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Búsqueda inteligente</strong>
+              <span class="muted">Encontrá versículos por concepto y significado, no solo por coincidencias exactas.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>AI assistant</strong>
+              <span class="muted">Ask Bible-related questions and receive answers with Scripture references.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Asistente con IA</strong>
+              <span class="muted">Hacé preguntas sobre la Biblia y recibí respuestas con referencias bíblicas.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>Quiz generator</strong>
+              <span class="muted">Create quizzes from chapters with multiple choice, true/false, and fill-in-the-blank formats.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Generador de quizzes</strong>
+              <span class="muted">Creá cuestionarios por capítulo con opción múltiple, verdadero/falso y completar espacios.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div data-lang="en" class="visible">
+              <strong>Reading plans and notes</strong>
+              <span class="muted">Build personalized study plans and save personal notes synced across devices.</span>
+            </div>
+            <div data-lang="es">
+              <strong>Planes y notas</strong>
+              <span class="muted">Armá planes de estudio personalizados y guardá notas personales sincronizadas entre dispositivos.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-3">
+        <div class="card">
+          <div data-lang="en" class="visible">
+            <h3>Free features</h3>
+            <p class="muted">Bible reading, audio, and search are available without using credits.</p>
+          </div>
+          <div data-lang="es">
+            <h3>Funciones gratuitas</h3>
+            <p class="muted">La lectura, el audio y la búsqueda están disponibles sin usar créditos.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div data-lang="en" class="visible">
+            <h3>AI-powered tools</h3>
+            <p class="muted">Chat, quizzes, and reading plans use credits purchased inside the app.</p>
+          </div>
+          <div data-lang="es">
+            <h3>Herramientas con IA</h3>
+            <p class="muted">El chat, los quizzes y los planes de lectura usan créditos comprados dentro de la app.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div data-lang="en" class="visible">
+            <h3>Multi-language support</h3>
+            <p class="muted">The app automatically detects the device language and supports English and Spanish.</p>
+          </div>
+          <div data-lang="es">
+            <h3>Soporte multilenguaje</h3>
+            <p class="muted">La app detecta automáticamente el idioma del dispositivo y soporta inglés y español.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div data-lang="en" class="visible">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-text">For support, business inquiries, or feedback about Biblie Study, use the contact details below.</p>
+            <p><strong>Email:</strong> francisco.arcebenaglia@gmail.com</p>
+            <p><strong>Website:</strong> https://franbenaglia.github.io/biblie-study-main/biblie-study-landing-page.html</p>
+            <p><strong>Support hours:</strong> Monday to Friday</p>
+          </div>
+          <div data-lang="es">
+            <h2 class="section-title">Contacto</h2>
+            <p class="section-text">Para soporte, consultas comerciales o comentarios sobre Biblie Study, usá los datos de contacto a continuación.</p>
+             <p><strong>Email:</strong> francisco.arcebenaglia@gmail.com</p>
+            <p><strong>Website:</strong> https://franbenaglia.github.io/biblie-study-main/biblie-study-landing-page.html</p>
+            <p><strong>Horario de soporte:</strong> Lunes a viernes</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div data-lang="en" class="visible">© 2026 Biblie Study. All rights reserved.</div>
+      <div data-lang="es">© 2026 Biblie Study. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <!-- ACCOUNT DELETION -->
+  <section id="delete-account">
+    <div class="container">
+      <div class="contact-box">
+        <div data-lang="en" class="visible">
+          <h2 class="section-title">Delete Account</h2>
+          <p class="section-text">You can request the deletion of your Biblie Study account and associated data at any time.</p>
+
+          <h3>How to request deletion</h3>
+          <ol>
+            <li>Send an email to: your@email.com</li>
+            <li>Use the subject: "Delete my account"</li>
+            <li>Include the email associated with your account</li>
+          </ol>
+
+          <h3>What data is deleted</h3>
+          <ul>
+            <li>Account information (email and profile)</li>
+            <li>Notes and saved content</li>
+            <li>Chat history and AI interactions</li>
+          </ul>
+
+          <h3>Data retention</h3>
+          <p>Some minimal data may be retained for legal, security, or fraud prevention purposes for a limited period (up to 30 days), after which it is permanently deleted.</p>
+        </div>
+
+        <div data-lang="es">
+          <h2 class="section-title">Eliminar cuenta</h2>
+          <p class="section-text">Podés solicitar la eliminación de tu cuenta de Biblie Study y los datos asociados en cualquier momento.</p>
+
+          <h3>Cómo solicitar la eliminación</h3>
+          <ol>
+            <li>Enviar un email a: your@email.com</li>
+            <li>Asunto: "Eliminar mi cuenta"</li>
+            <li>Incluir el email asociado a la cuenta</li>
+          </ol>
+
+          <h3>Datos que se eliminan</h3>
+          <ul>
+            <li>Información de la cuenta (email y perfil)</li>
+            <li>Notas y contenido guardado</li>
+            <li>Historial de chat e interacciones con IA</li>
+          </ul>
+
+          <h3>Retención de datos</h3>
+          <p>Algunos datos mínimos pueden conservarse por razones legales, de seguridad o prevención de fraude durante un período limitado (hasta 30 días), tras lo cual se eliminan definitivamente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.remove('visible');
+        if (el.getAttribute('data-lang') === lang) el.classList.add('visible');
+      });
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      document.documentElement.lang = lang;
+    }
+  </script>
+  
+  <!-- PRIVACY POLICY -->
+  <section id="privacy">
+    <div class="container">
+      <div class="contact-box">
+        <div data-lang="en" class="visible">
+          <h2 class="section-title">Privacy Policy</h2>
+          <p class="section-text"><strong>Effective date:</strong> 2026</p>
+
+          <p>Biblie Study respects your privacy. This Privacy Policy explains how we collect, use, process, and protect your information.</p>
+
+          <h3>Information we collect</h3>
+          <ul>
+            <li>Account information (email, login method)</li>
+            <li>User-generated content (notes, chats, preferences)</li>
+            <li>Usage data (features used, interactions)</li>
+            <li>Device information (basic technical data)</li>
+          </ul>
+
+          <h3>AI processing</h3>
+          <p>Some features (such as chat, quizzes, and reading plans) use artificial intelligence. User inputs (such as questions or text) may be processed by third-party AI providers (e.g., OpenAI or similar services) to generate responses. We do not use this data to personally identify users.</p>
+
+          <h3>How we use your information</h3>
+          <ul>
+            <li>To provide and improve app functionality</li>
+            <li>To synchronize data across devices</li>
+            <li>To deliver AI-powered features</li>
+            <li>To ensure security and prevent fraud</li>
+          </ul>
+
+          <h3>Data processing and storage</h3>
+          <p>Your data may be processed and stored on secure servers (e.g., cloud infrastructure such as AWS). This is required to provide core features like account access, notes synchronization, and AI services.</p>
+
+          <h3>Purchases</h3>
+          <p>In-app purchases are processed securely through Google Play. We do not collect or store payment information.</p>
+
+          <h3>Data sharing</h3>
+          <p>We do not sell personal data. Data may be shared with trusted third-party providers strictly necessary to operate the app (e.g., cloud hosting, analytics, AI services).</p>
+
+          <h3>Data retention</h3>
+          <p>We retain your data only as long as necessary to provide the service. You may request deletion of your account and data at any time.</p>
+
+          <h3>Your rights (GDPR / CCPA)</h3>
+          <p>Depending on your location, you may have rights to access, correct, or delete your data. You may also request restriction of processing or data portability where applicable.</p>
+
+          <h3>Data security</h3>
+          <p>We implement reasonable technical and organizational measures to protect your data. However, no system is completely secure.</p>
+
+          <h3>Children</h3>
+          <p>This app is not specifically directed to children under 13. If minors use the app, parental supervision is recommended.</p>
+
+          <h3>Contact</h3>
+          <p>If you have questions or requests regarding your data, contact us at: your@email.com</p>
+        </div>
+
+        <div data-lang="es">
+          <h2 class="section-title">Política de Privacidad</h2>
+          <p class="section-text"><strong>Fecha de vigencia:</strong> 2026</p>
+
+          <p>Biblie Study respeta tu privacidad. Esta política explica cómo recopilamos, usamos, procesamos y protegemos tu información.</p>
+
+          <h3>Información que recopilamos</h3>
+          <ul>
+            <li>Datos de cuenta (email, método de acceso)</li>
+            <li>Contenido generado por el usuario (notas, chats, preferencias)</li>
+            <li>Datos de uso (funciones utilizadas, interacción)</li>
+            <li>Información del dispositivo (datos técnicos básicos)</li>
+          </ul>
+
+          <h3>Uso de inteligencia artificial</h3>
+          <p>Algunas funciones (como chat, quizzes y planes de lectura) utilizan inteligencia artificial. Los datos ingresados por el usuario pueden ser procesados por proveedores externos de IA (como OpenAI u otros servicios similares) para generar respuestas. Estos datos no se utilizan para identificar personalmente a los usuarios.</p>
+
+          <h3>Cómo usamos la información</h3>
+          <ul>
+            <li>Para proporcionar y mejorar la aplicación</li>
+            <li>Para sincronizar datos entre dispositivos</li>
+            <li>Para ofrecer funciones con IA</li>
+            <li>Para seguridad y prevención de fraude</li>
+          </ul>
+
+          <h3>Procesamiento y almacenamiento</h3>
+          <p>Los datos pueden ser procesados y almacenados en servidores seguros (por ejemplo, infraestructura en la nube como AWS). Esto es necesario para funcionalidades como acceso a cuentas, sincronización de notas y servicios de IA.</p>
+
+          <h3>Compras</h3>
+          <p>Las compras dentro de la app se procesan mediante Google Play. No recopilamos ni almacenamos información de pago.</p>
+
+          <h3>Compartición de datos</h3>
+          <p>No vendemos datos personales. Algunos datos pueden compartirse con proveedores externos confiables necesarios para operar la aplicación (hosting, analítica, servicios de IA).</p>
+
+          <h3>Retención de datos</h3>
+          <p>Los datos se conservan solo el tiempo necesario para prestar el servicio. Podés solicitar la eliminación de tu cuenta y datos en cualquier momento.</p>
+
+          <h3>Tus derechos (GDPR / CCPA)</h3>
+          <p>Dependiendo de tu ubicación, podés tener derecho a acceder, corregir o eliminar tus datos, así como limitar su procesamiento o solicitar portabilidad.</p>
+
+          <h3>Seguridad</h3>
+          <p>Aplicamos medidas técnicas y organizativas razonables para proteger la información, aunque ningún sistema es completamente seguro.</p>
+
+          <h3>Menores</h3>
+          <p>La app no está dirigida específicamente a menores de 13 años. Se recomienda supervisión parental.</p>
+
+          <h3>Contacto</h3>
+          <p>Para consultas sobre datos personales: your@email.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
